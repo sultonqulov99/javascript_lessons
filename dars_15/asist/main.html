@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">click</button>
+    <script>
+        let recognitor = new webkitSpeechRecognition()
+        recognitor.long = 'uz-UZ'
+
+        btn.onclick = function(){
+            recognitor.start() 
+        }
+        recognitor.onresult = function(event) {
+            let gap = event.results[0][0].transcript
+            console.log(gap);
+            switch(gap){
+                case 'salom qalesan':
+                    speechSynthesis.speak( new SpeechSynthesisUtterance('Men yaxshiman sen yaxshimisan') )
+                    break;
+                case 'isming nima':
+                    speechSynthesis.speak( new SpeechSynthesisUtterance('ismim yoq') )
+                    break;
+                default:
+                    speechSynthesis.speak( new SpeechSynthesisUtterance("O'zing shunaqa") )
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="myFunction()">Submit</button>
+<script>
+function myFunction() {
+    let person = prompt("Isming nima?");
+    let person1 = prompt("Yoshing nechida?");
+    let person2 = prompt("Qayerda o\'qisan");
+    if(person != null && person1 != null && person2 != null){
+        console.table(
+            {
+                'Isming nima?': person,
+                "Yoshing nechida?":person1,
+                "Qayerda o\'qisan":person2
+            })
+    }
+}
+</script>
+
+</body>
+</html>

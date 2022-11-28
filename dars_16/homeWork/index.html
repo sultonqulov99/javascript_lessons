@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        const chatId = 899036228
+        let token = "https://api.telegram.org/bot5228479712:AAGuQhl5sag2RAAOVMy_P2GNX1cOUYbXuVM"
+        async function getUpdates(){
+            let res = await fetch(`https://api.telegram.org/bot5228479712:AAGuQhl5sag2RAAOVMy_P2GNX1cOUYbXuVM/getUpdates`)
+            res = await res.json()
+
+            let userId = res.result[res.result.length -1].message.chat.id
+            let text = res.result[res.result.length -1].message.text
+
+            let api = await fetch(`https://pixabay.com/api/?key=25570361-2831118e9efb3556d0258fa4f&q=${text}&image_type=photo`)
+            api = await api.json()
+            return (sendMessage(userId,text),sendPhoto(userId,api.hits[api.hits.length-1].pageURL))
+        }
+        async function sendMessage(userId,text){
+            let res = await fetch(`https://api.telegram.org/bot5228479712:AAGuQhl5sag2RAAOVMy_P2GNX1cOUYbXuVM/sendMessage`,
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    chat_id: userId
+                })
+            })
+        }
+
+        async function sendPhoto(userId,api){
+            let res = await fetch(`https://api.telegram.org/bot5228479712:AAGuQhl5sag2RAAOVMy_P2GNX1cOUYbXuVM/sendPhoto`,
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    chat_id: userId,
+                    photo: api
+                })
+            })
+        }
+        getUpdates()
+    </script>
+</body>
+</html>
